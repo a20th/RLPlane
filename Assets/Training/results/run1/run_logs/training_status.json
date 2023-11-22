@@ -1,0 +1,29 @@
+{
+    "PlaneMovement": {
+        "checkpoints": [
+            {
+                "steps": 91451,
+                "file_path": "results\\run1\\PlaneMovement\\PlaneMovement-91451.onnx",
+                "reward": null,
+                "creation_time": 1700690995.7296119,
+                "auxillary_file_paths": [
+                    "results\\run1\\PlaneMovement\\PlaneMovement-91451.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 91451,
+            "file_path": "results\\run1\\PlaneMovement.onnx",
+            "reward": null,
+            "creation_time": 1700690995.7296119,
+            "auxillary_file_paths": [
+                "results\\run1\\PlaneMovement\\PlaneMovement-91451.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
