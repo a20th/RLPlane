@@ -15,6 +15,4 @@ public class Spawner : MonoBehaviour
         }
         obj = Instantiate(ringPrefab, newPosition, Quaternion.Euler(0,0,0), this.transform);
     }
-
-
 }

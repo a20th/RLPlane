@@ -6,13 +6,13 @@ using Unity.MLAgents.Sensors;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class AgentController : Agent
+public class AgentControllerRandom : Agent
 {
     public Spawner spawner;
     public Rigidbody rb;
     private const float width = 200;
+    private const float spawnWidth = width - 30;
     private float MAX_DISTANCE = Vector3.Distance(new Vector3(-width, 20, -width), new Vector3(width, 60, width));
-
 
     private enum ACTIONS
     {
@@ -75,9 +75,9 @@ public class AgentController : Agent
     {
         //sensor.AddObservation(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
         //Debug.Log(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
-        //sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(transform.rotation);
-        //sensor.AddObservation(spawner.obj.transform.localPosition);
+        sensor.AddObservation(spawner.obj.transform.localPosition);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -121,13 +121,14 @@ public class AgentController : Agent
         var dot = Vector3.Dot(heading, transform.forward);
         /*float scaledDistance = Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition) / MAX_DISTANCE;
         AddReward(scaledDistance / 1000 * dot);*/
-        AddReward(dot);
+        AddReward(dot / 10);
         //AddReward(-0.01f);
     }
 
     public override void OnEpisodeBegin()
     {
-        spawner.Spawn(new Vector3(150, 40, 60));
+        Vector3 randomLocation = new Vector3(Random.Range(-spawnWidth, spawnWidth), Random.Range(20, 60), Random.Range(-spawnWidth, spawnWidth));
+        spawner.Spawn(randomLocation);
         transform.localPosition = new Vector3(0, 30, 0);
         transform.localRotation = Quaternion.Euler(0,0,0);
         rb.velocity = Vector3.zero;
@@ -143,4 +144,4 @@ public class AgentController : Agent
         transform.Rotate(pitchSpeed * pitch * Time.fixedDeltaTime * Vector3.right);
         transform.Rotate(yawSpeed * yaw * Time.fixedDeltaTime * Vector3.up);
         transform.Translate(speed * Time.fixedDeltaTime * Vector3.forward);
-        */
+*/

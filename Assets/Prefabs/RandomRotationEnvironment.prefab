@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5407903732912940529}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: RandomRotationEnvironment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

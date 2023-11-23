@@ -1,0 +1,65 @@
+{
+    "PlaneMovement": {
+        "checkpoints": [
+            {
+                "steps": 499792,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-499792.onnx",
+                "reward": null,
+                "creation_time": 1700734779.0782757,
+                "auxillary_file_paths": [
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-499792.pt"
+                ]
+            },
+            {
+                "steps": 999840,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-999840.onnx",
+                "reward": null,
+                "creation_time": 1700735410.4056573,
+                "auxillary_file_paths": [
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-999840.pt"
+                ]
+            },
+            {
+                "steps": 1499768,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-1499768.onnx",
+                "reward": 14.681992053985596,
+                "creation_time": 1700736079.5804143,
+                "auxillary_file_paths": [
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-1499768.pt"
+                ]
+            },
+            {
+                "steps": 1999792,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-1999792.onnx",
+                "reward": null,
+                "creation_time": 1700736785.327566,
+                "auxillary_file_paths": [
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-1999792.pt"
+                ]
+            },
+            {
+                "steps": 2001072,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-2001072.onnx",
+                "reward": null,
+                "creation_time": 1700736785.449573,
+                "auxillary_file_paths": [
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-2001072.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2001072,
+            "file_path": "results\\Run4\\PlaneMovement.onnx",
+            "reward": null,
+            "creation_time": 1700736785.449573,
+            "auxillary_file_paths": [
+                "results\\Run4\\PlaneMovement\\PlaneMovement-2001072.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
