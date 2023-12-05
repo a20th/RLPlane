@@ -10,7 +10,7 @@ public class AgentController : Agent
 {
     public Spawner spawner;
     public Rigidbody rb;
-    private const float width = 200;
+    private const float width = 150;
     private float MAX_DISTANCE = Vector3.Distance(new Vector3(-width, 20, -width), new Vector3(width, 60, width));
 
     private enum ACTIONS
@@ -23,13 +23,13 @@ public class AgentController : Agent
         ROLLLEFT = 5, 
         ROLLRIGHT = 6
     }
-    public float speed = 15.0f;
+    public float speed = 5f;
     
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Score"))
         {
-            AddReward(1);
+            AddReward(50);
             EndEpisode();
         }
     }
@@ -74,9 +74,14 @@ public class AgentController : Agent
     {
         //sensor.AddObservation(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
         //Debug.Log(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
-        //sensor.AddObservation(transform.localPosition);
+        var heading = (spawner.obj.transform.localPosition - transform.localPosition).normalized;
+        var dot = Vector3.Dot(heading, transform.forward);
+
+        //a
+        sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(transform.rotation);
-        //sensor.AddObservation(spawner.obj.transform.localPosition);
+        sensor.AddObservation(spawner.obj.transform.localPosition);
+        sensor.AddObservation(dot);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -109,7 +114,7 @@ public class AgentController : Agent
                 transform.Rotate(Vector3.back * Time.fixedDeltaTime * 20);
                 break;
         }
-        //transform.Translate(speed * Time.fixedDeltaTime * Vector3.forward);
+        transform.Translate(speed * Time.fixedDeltaTime * Vector3.forward);
 
         if (transform.localPosition.y > 100 || transform.localPosition.y < 0 || Mathf.Abs(transform.localPosition.x) > width || Mathf.Abs(transform.localPosition.z) > width) 
         {
@@ -120,15 +125,15 @@ public class AgentController : Agent
         var dot = Vector3.Dot(heading, transform.forward);
         /*float scaledDistance = Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition) / MAX_DISTANCE;
         AddReward(scaledDistance / 1000 * dot);*/
-        AddReward(dot);
+        AddReward(dot / 10);
+        Debug.Log(dot);
         //AddReward(-0.01f);
     }
 
     public override void OnEpisodeBegin()
     {
-        spawner.Spawn(new Vector3(150, 40, 60));
-        transform.localPosition = new Vector3(0, 30, 0);
-        transform.localRotation = Quaternion.Euler(0,0,0);
+        spawner.Spawn(new Vector3(100, 40, 60));
+        transform.SetLocalPositionAndRotation(new Vector3(0, 50, -130), Quaternion.Euler(0,0,0));
         rb.velocity = Vector3.zero;
     }
 }

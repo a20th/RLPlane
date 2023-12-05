@@ -36,7 +36,7 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 2000000
+    max_steps: 1000000
     time_horizon: 256
     summary_freq: 50000
     threaded: false
@@ -62,7 +62,7 @@ engine_settings:
   no_graphics: false
 environment_parameters: null
 checkpoint_settings:
-  run_id: Run4
+  run_id: Run5
   initialize_from: null
   load_model: false
   resume: false

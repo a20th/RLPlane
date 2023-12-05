@@ -11,7 +11,7 @@ Ezután következő környezetet próbáltam betanítani: Az ágens még mindig 
 
 | Tanítás neve | Verdikt | 
 |-|-|
-| Run3 | Az ágens nem tanult be, feltehetőleg a kevés összlépésszám miatt |+
-| Run4 | Az ágens nem tanult be, feltehetőleg a kevés összlépésszám miatt |
+| Run3 | Az ágens nem tanult be, feltehetőleg a kevés összlépésszám miatt |
+| Run4 | Az ágens nem tanult be |
 
 

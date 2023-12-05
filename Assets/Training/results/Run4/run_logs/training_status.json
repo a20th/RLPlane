@@ -2,58 +2,40 @@
     "PlaneMovement": {
         "checkpoints": [
             {
-                "steps": 499792,
-                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-499792.onnx",
-                "reward": null,
-                "creation_time": 1700734779.0782757,
+                "steps": 499893,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-499893.onnx",
+                "reward": 427.82948303222656,
+                "creation_time": 1701788989.6791103,
                 "auxillary_file_paths": [
-                    "results\\Run4\\PlaneMovement\\PlaneMovement-499792.pt"
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-499893.pt"
                 ]
             },
             {
-                "steps": 999840,
-                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-999840.onnx",
-                "reward": null,
-                "creation_time": 1700735410.4056573,
+                "steps": 999900,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-999900.onnx",
+                "reward": 497.8566131591797,
+                "creation_time": 1701789636.017705,
                 "auxillary_file_paths": [
-                    "results\\Run4\\PlaneMovement\\PlaneMovement-999840.pt"
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-999900.pt"
                 ]
             },
             {
-                "steps": 1499768,
-                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-1499768.onnx",
-                "reward": 14.681992053985596,
-                "creation_time": 1700736079.5804143,
-                "auxillary_file_paths": [
-                    "results\\Run4\\PlaneMovement\\PlaneMovement-1499768.pt"
-                ]
-            },
-            {
-                "steps": 1999792,
-                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-1999792.onnx",
+                "steps": 1208375,
+                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-1208375.onnx",
                 "reward": null,
-                "creation_time": 1700736785.327566,
+                "creation_time": 1701789947.366429,
                 "auxillary_file_paths": [
-                    "results\\Run4\\PlaneMovement\\PlaneMovement-1999792.pt"
-                ]
-            },
-            {
-                "steps": 2001072,
-                "file_path": "results\\Run4\\PlaneMovement\\PlaneMovement-2001072.onnx",
-                "reward": null,
-                "creation_time": 1700736785.449573,
-                "auxillary_file_paths": [
-                    "results\\Run4\\PlaneMovement\\PlaneMovement-2001072.pt"
+                    "results\\Run4\\PlaneMovement\\PlaneMovement-1208375.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 2001072,
+            "steps": 1208375,
             "file_path": "results\\Run4\\PlaneMovement.onnx",
             "reward": null,
-            "creation_time": 1700736785.449573,
+            "creation_time": 1701789947.366429,
             "auxillary_file_paths": [
-                "results\\Run4\\PlaneMovement\\PlaneMovement-2001072.pt"
+                "results\\Run4\\PlaneMovement\\PlaneMovement-1208375.pt"
             ]
         }
     },
