@@ -2,40 +2,40 @@
     "PlaneMovement": {
         "checkpoints": [
             {
-                "steps": 499981,
-                "file_path": "results\\Run8\\PlaneMovement\\PlaneMovement-499981.onnx",
-                "reward": 282.37271308898926,
-                "creation_time": 1701883021.1528146,
+                "steps": 499906,
+                "file_path": "results\\Run8\\PlaneMovement\\PlaneMovement-499906.onnx",
+                "reward": 278.81168365478516,
+                "creation_time": 1701895579.7033238,
                 "auxillary_file_paths": [
-                    "results\\Run8\\PlaneMovement\\PlaneMovement-499981.pt"
+                    "results\\Run8\\PlaneMovement\\PlaneMovement-499906.pt"
                 ]
             },
             {
-                "steps": 999880,
-                "file_path": "results\\Run8\\PlaneMovement\\PlaneMovement-999880.onnx",
-                "reward": 292.4946589999729,
-                "creation_time": 1701883691.1186554,
+                "steps": 999990,
+                "file_path": "results\\Run8\\PlaneMovement\\PlaneMovement-999990.onnx",
+                "reward": 293.887922668457,
+                "creation_time": 1701896148.405244,
                 "auxillary_file_paths": [
-                    "results\\Run8\\PlaneMovement\\PlaneMovement-999880.pt"
+                    "results\\Run8\\PlaneMovement\\PlaneMovement-999990.pt"
                 ]
             },
             {
-                "steps": 1000136,
-                "file_path": "results\\Run8\\PlaneMovement\\PlaneMovement-1000136.onnx",
-                "reward": 292.4946589999729,
-                "creation_time": 1701883691.2312028,
+                "steps": 1000246,
+                "file_path": "results\\Run8\\PlaneMovement\\PlaneMovement-1000246.onnx",
+                "reward": 293.887922668457,
+                "creation_time": 1701896148.5132444,
                 "auxillary_file_paths": [
-                    "results\\Run8\\PlaneMovement\\PlaneMovement-1000136.pt"
+                    "results\\Run8\\PlaneMovement\\PlaneMovement-1000246.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 1000136,
+            "steps": 1000246,
             "file_path": "results\\Run8\\PlaneMovement.onnx",
-            "reward": 292.4946589999729,
-            "creation_time": 1701883691.2312028,
+            "reward": 293.887922668457,
+            "creation_time": 1701896148.5132444,
             "auxillary_file_paths": [
-                "results\\Run8\\PlaneMovement\\PlaneMovement-1000136.pt"
+                "results\\Run8\\PlaneMovement\\PlaneMovement-1000246.pt"
             ]
         }
     },

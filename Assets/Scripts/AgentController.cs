@@ -11,19 +11,8 @@ public class AgentController : Agent
     public Spawner spawner;
     public Rigidbody rb;
     private const float width = 50;
-    private float MAX_DISTANCE = Vector3.Distance(new Vector3(0, 40, -130), new Vector3(100, 50, 40));
     public const float RayCastLength = 250;
-    
-    private enum ACTIONS
-    {
-        FORWARD = 0,
-        LEFT = 1,
-        RIGHT = 2,
-        UP = 3,
-        DOWN = 4,
-        ROLLLEFT = 5, 
-        ROLLRIGHT = 6
-    }
+    public float speed = 5f;
 
     private enum DISACTIONS
     {
@@ -31,15 +20,12 @@ public class AgentController : Agent
         LEFT = 1,
         RIGHT = 2
     }
-
-    public float speed = 5f;
     
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Score"))
         {
             AddReward(10);
-            Debug.Log("Betalált");
             EndEpisode();
         }
     }
@@ -52,33 +38,35 @@ public class AgentController : Agent
         var vertical = Input.GetAxisRaw("Vertical");
         var rollleft = Input.GetAxisRaw("Fire1");
         var rollright = Input.GetAxisRaw("Fire2");
-        
+        /*
+         DISACTIONS.NOTHING by default.
+         */
         if (horizontal == -1)
         {
-            actions[0] = (int)ACTIONS.LEFT;
-        }
-        else if (vertical == +1)
-        {
-            actions[0] = (int)ACTIONS.UP;
-        }
-        else if (vertical == -1)
-        {
-            actions[0] = (int)ACTIONS.DOWN;
+            actions[0] = (int)DISACTIONS.LEFT;
         }
         else if (horizontal == +1)
         {
-            actions[0] = (int)ACTIONS.RIGHT;
+            actions[0] = (int)DISACTIONS.RIGHT;
         }
-        else if (rollleft == +1)
+
+        if (vertical == +1)
         {
-            actions[0] = (int)ACTIONS.ROLLLEFT;
+            actions[1] = (int)DISACTIONS.LEFT;
+        }
+        else if (vertical == -1)
+        {
+            actions[1] = (int)DISACTIONS.RIGHT;
+        } 
+
+        if (rollleft == +1)
+        {
+            actions[2] = (int)DISACTIONS.LEFT;
         }
         else if (rollright == +1)
         {
-            actions[0] = (int)ACTIONS.ROLLRIGHT;
-        }
-
-        
+            actions[2] = (int)DISACTIONS.RIGHT;
+        }        
     }
 
     private int DoARaycast(Vector3 direction)
@@ -99,9 +87,7 @@ public class AgentController : Agent
     }
 
     public override void CollectObservations(VectorSensor sensor)
-    {
-        
-        //Debug.Log(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
+    {    
         var heading = (spawner.obj.transform.localPosition - transform.localPosition).normalized;
         var dot = Vector3.Dot(heading, transform.forward);
 
@@ -115,25 +101,24 @@ public class AgentController : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        rb.velocity = Vector3.zero;
+        
         if (rb.velocity != Vector3.zero)
         {
             Debug.Log(rb.velocity);
         }
+        rb.velocity = Vector3.zero;
 
-        //var actionTaken = actions.DiscreteActions[0];
         var yawAction = actions.DiscreteActions[0];
         var pitchAction = actions.DiscreteActions[1];
-        var rollAction = actions.DiscreteActions[2];
-        
+        var rollAction = actions.DiscreteActions[2];       
 
         switch (yawAction)
         {
             case (int)DISACTIONS.NOTHING: break;
-            case (int)ACTIONS.LEFT:
+            case (int)DISACTIONS.LEFT:
                 transform.Rotate(20 * Time.fixedDeltaTime * Vector3.down);
                 break;
-            case (int)ACTIONS.RIGHT:
+            case (int)DISACTIONS.RIGHT:
                 transform.Rotate(20 * Time.fixedDeltaTime * Vector3.up);
                 break;
         }
@@ -141,52 +126,24 @@ public class AgentController : Agent
         switch (pitchAction)
         {
             case (int)DISACTIONS.NOTHING: break;
-            case (int)ACTIONS.LEFT:
+            case (int)DISACTIONS.LEFT:
                 transform.Rotate(20 * Time.fixedDeltaTime * Vector3.right);
                 break;
-            case (int)ACTIONS.RIGHT:
+            case (int)DISACTIONS.RIGHT:
                 transform.Rotate(20 * Time.fixedDeltaTime * Vector3.left);
                 break;
         }
 
-        /*
         switch (rollAction)
         {
             case (int)DISACTIONS.NOTHING: break;
-            case (int)ACTIONS.LEFT:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.forward);
+            case (int)DISACTIONS.LEFT:
+                transform.Rotate(10 * Time.fixedDeltaTime * Vector3.forward);
                 break;
-            case (int)ACTIONS.RIGHT:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.back);
-                break;
-        }
-        */
-
-        /*
-        switch (actionTaken)
-        {
-            case (int)ACTIONS.FORWARD:
-                break;
-            case (int)ACTIONS.LEFT:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.down);
-                break;
-            case (int)ACTIONS.RIGHT:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.up);
-                break;
-            case (int)ACTIONS.UP:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.right);
-                break;
-            case (int)ACTIONS.DOWN:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.left);
-                break;
-            case (int)ACTIONS.ROLLLEFT: 
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.forward);
-                break;
-            case (int)ACTIONS.ROLLRIGHT:
-                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.back);
+            case (int)DISACTIONS.RIGHT:
+                transform.Rotate(10 * Time.fixedDeltaTime * Vector3.back);
                 break;
         }
-        */
 
         transform.Translate(speed * Time.fixedDeltaTime * Vector3.forward);
 
@@ -199,50 +156,14 @@ public class AgentController : Agent
         var heading = (spawner.obj.transform.localPosition - transform.localPosition).normalized;
         var dot = Vector3.Dot(heading, transform.forward);
         AddReward(dot);
-        /*float scaledDistance = Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition) / MAX_DISTANCE;
-        Debug.Log(scaledDistance);
-        AddReward(scaledDistance / 1000);*/
-        //Debug.Log(dot);
-        /*if (DoARaycast(transform.forward) == 1)
+        if(transform.up.y > 0)
         {
-            AddReward(5);
-        }
-        AddReward(dot);
-        */
-        /*
-        else
-        {
-            if(dot > 0.8)
-            {
-                AddReward(dot + 4);
-            }
-            else if(dot > 0)
-            {
-                AddReward(-dot / 2);
-            }
-            else
-            {
-                AddReward(dot);
-            }
-        //}*/
-        /*
-        float scaledDistance = Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition) / MAX_DISTANCE;
-        AddReward(scaledDistance / 1000 * dot);*/
-        /*
-        if(dot > 0.9999)
-        {
-            AddReward(7);
-        }
-        else if(dot > 0.99)
-        {
-            AddReward(2);
+            AddReward(0.001f);
         }
         else
         {
-            AddReward(dot);
+            AddReward(-0.001f);
         }
-        */
-        //AddReward(-0.01f);
     }
 
     public override void OnEpisodeBegin()
