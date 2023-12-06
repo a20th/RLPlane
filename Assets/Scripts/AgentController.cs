@@ -10,9 +10,10 @@ public class AgentController : Agent
 {
     public Spawner spawner;
     public Rigidbody rb;
-    private const float width = 150;
-    private float MAX_DISTANCE = Vector3.Distance(new Vector3(-width, 20, -width), new Vector3(width, 60, width));
-
+    private const float width = 50;
+    private float MAX_DISTANCE = Vector3.Distance(new Vector3(0, 40, -130), new Vector3(100, 50, 40));
+    public const float RayCastLength = 250;
+    
     private enum ACTIONS
     {
         FORWARD = 0,
@@ -23,13 +24,22 @@ public class AgentController : Agent
         ROLLLEFT = 5, 
         ROLLRIGHT = 6
     }
+
+    private enum DISACTIONS
+    {
+        NOTHING = 0,
+        LEFT = 1,
+        RIGHT = 2
+    }
+
     public float speed = 5f;
     
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Score"))
         {
-            AddReward(50);
+            AddReward(10);
+            Debug.Log("Betalált");
             EndEpisode();
         }
     }
@@ -42,8 +52,7 @@ public class AgentController : Agent
         var vertical = Input.GetAxisRaw("Vertical");
         var rollleft = Input.GetAxisRaw("Fire1");
         var rollright = Input.GetAxisRaw("Fire2");
-
-
+        
         if (horizontal == -1)
         {
             actions[0] = (int)ACTIONS.LEFT;
@@ -68,72 +77,178 @@ public class AgentController : Agent
         {
             actions[0] = (int)ACTIONS.ROLLRIGHT;
         }
+
+        
+    }
+
+    private int DoARaycast(Vector3 direction)
+    {
+        Ray landingRay = new Ray(transform.position, direction);
+
+        if (Physics.Raycast(landingRay, out RaycastHit hit, RayCastLength) && hit.collider.CompareTag("Score"))
+        {
+            Debug.DrawRay(transform.position, direction * hit.distance, Color.red);
+            return 1;
+        }
+        else
+        {
+            //Debug.DrawLine(transform.localPosition, transform.localPosition + direction * RayCastLength, Color.green);
+            return 0;
+        }
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //sensor.AddObservation(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
+        
         //Debug.Log(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
         var heading = (spawner.obj.transform.localPosition - transform.localPosition).normalized;
         var dot = Vector3.Dot(heading, transform.forward);
 
-        //a
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(transform.rotation);
         sensor.AddObservation(spawner.obj.transform.localPosition);
         sensor.AddObservation(dot);
+        sensor.AddObservation(Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition));
+        //sensor.AddObservation(DoARaycast(transform.forward));
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        var actionTaken = actions.DiscreteActions[0];
-        if(rb.velocity != Vector3.zero)
+        rb.velocity = Vector3.zero;
+        if (rb.velocity != Vector3.zero)
         {
-            Debug.Log("Force:" + rb.velocity.ToString());
+            Debug.Log(rb.velocity);
         }
+
+        //var actionTaken = actions.DiscreteActions[0];
+        var yawAction = actions.DiscreteActions[0];
+        var pitchAction = actions.DiscreteActions[1];
+        var rollAction = actions.DiscreteActions[2];
+        
+
+        switch (yawAction)
+        {
+            case (int)DISACTIONS.NOTHING: break;
+            case (int)ACTIONS.LEFT:
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.down);
+                break;
+            case (int)ACTIONS.RIGHT:
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.up);
+                break;
+        }
+
+        switch (pitchAction)
+        {
+            case (int)DISACTIONS.NOTHING: break;
+            case (int)ACTIONS.LEFT:
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.right);
+                break;
+            case (int)ACTIONS.RIGHT:
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.left);
+                break;
+        }
+
+        /*
+        switch (rollAction)
+        {
+            case (int)DISACTIONS.NOTHING: break;
+            case (int)ACTIONS.LEFT:
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.forward);
+                break;
+            case (int)ACTIONS.RIGHT:
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.back);
+                break;
+        }
+        */
+
+        /*
         switch (actionTaken)
         {
             case (int)ACTIONS.FORWARD:
                 break;
             case (int)ACTIONS.LEFT:
-                transform.Rotate(Vector3.down * Time.fixedDeltaTime * 20);
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.down);
                 break;
             case (int)ACTIONS.RIGHT:
-                transform.Rotate(Vector3.up * Time.fixedDeltaTime * 20);
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.up);
                 break;
             case (int)ACTIONS.UP:
-                transform.Rotate(Vector3.right * Time.fixedDeltaTime * 20);
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.right);
                 break;
             case (int)ACTIONS.DOWN:
-                transform.Rotate(Vector3.left * Time.fixedDeltaTime * 20);
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.left);
                 break;
             case (int)ACTIONS.ROLLLEFT: 
-                transform.Rotate(Vector3.forward * Time.fixedDeltaTime * 20);
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.forward);
                 break;
             case (int)ACTIONS.ROLLRIGHT:
-                transform.Rotate(Vector3.back * Time.fixedDeltaTime * 20);
+                transform.Rotate(20 * Time.fixedDeltaTime * Vector3.back);
                 break;
         }
+        */
+
         transform.Translate(speed * Time.fixedDeltaTime * Vector3.forward);
 
         if (transform.localPosition.y > 100 || transform.localPosition.y < 0 || Mathf.Abs(transform.localPosition.x) > width || Mathf.Abs(transform.localPosition.z) > width) 
         {
-            AddReward(-1);
+            AddReward(-10);
             EndEpisode();
         }
+        
         var heading = (spawner.obj.transform.localPosition - transform.localPosition).normalized;
         var dot = Vector3.Dot(heading, transform.forward);
+        AddReward(dot);
         /*float scaledDistance = Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition) / MAX_DISTANCE;
+        Debug.Log(scaledDistance);
+        AddReward(scaledDistance / 1000);*/
+        //Debug.Log(dot);
+        /*if (DoARaycast(transform.forward) == 1)
+        {
+            AddReward(5);
+        }
+        AddReward(dot);
+        */
+        /*
+        else
+        {
+            if(dot > 0.8)
+            {
+                AddReward(dot + 4);
+            }
+            else if(dot > 0)
+            {
+                AddReward(-dot / 2);
+            }
+            else
+            {
+                AddReward(dot);
+            }
+        //}*/
+        /*
+        float scaledDistance = Vector3.Distance(transform.localPosition, spawner.obj.transform.localPosition) / MAX_DISTANCE;
         AddReward(scaledDistance / 1000 * dot);*/
-        AddReward(dot / 10);
-        Debug.Log(dot);
+        /*
+        if(dot > 0.9999)
+        {
+            AddReward(7);
+        }
+        else if(dot > 0.99)
+        {
+            AddReward(2);
+        }
+        else
+        {
+            AddReward(dot);
+        }
+        */
         //AddReward(-0.01f);
     }
 
     public override void OnEpisodeBegin()
     {
-        spawner.Spawn(new Vector3(100, 40, 60));
-        transform.SetLocalPositionAndRotation(new Vector3(0, 50, -130), Quaternion.Euler(0,0,0));
+        spawner.Spawn(new Vector3(40, 50, 40));
+        transform.SetLocalPositionAndRotation(new Vector3(0, 40, -40), Quaternion.Euler(0,0,0));
         rb.velocity = Vector3.zero;
     }
 }

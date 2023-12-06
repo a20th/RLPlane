@@ -2,40 +2,22 @@
     "PlaneMovement": {
         "checkpoints": [
             {
-                "steps": 499784,
-                "file_path": "results\\Run5\\PlaneMovement\\PlaneMovement-499784.onnx",
-                "reward": null,
-                "creation_time": 1701792661.0177698,
+                "steps": 283830,
+                "file_path": "results\\Run5\\PlaneMovement\\PlaneMovement-283830.onnx",
+                "reward": -291.90397421518963,
+                "creation_time": 1701811739.8885534,
                 "auxillary_file_paths": [
-                    "results\\Run5\\PlaneMovement\\PlaneMovement-499784.pt"
-                ]
-            },
-            {
-                "steps": 999966,
-                "file_path": "results\\Run5\\PlaneMovement\\PlaneMovement-999966.onnx",
-                "reward": null,
-                "creation_time": 1701793377.7616732,
-                "auxillary_file_paths": [
-                    "results\\Run5\\PlaneMovement\\PlaneMovement-999966.pt"
-                ]
-            },
-            {
-                "steps": 1000222,
-                "file_path": "results\\Run5\\PlaneMovement\\PlaneMovement-1000222.onnx",
-                "reward": null,
-                "creation_time": 1701793377.8702412,
-                "auxillary_file_paths": [
-                    "results\\Run5\\PlaneMovement\\PlaneMovement-1000222.pt"
+                    "results\\Run5\\PlaneMovement\\PlaneMovement-283830.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 1000222,
+            "steps": 283830,
             "file_path": "results\\Run5\\PlaneMovement.onnx",
-            "reward": null,
-            "creation_time": 1701793377.8702412,
+            "reward": -291.90397421518963,
+            "creation_time": 1701811739.8885534,
             "auxillary_file_paths": [
-                "results\\Run5\\PlaneMovement\\PlaneMovement-1000222.pt"
+                "results\\Run5\\PlaneMovement\\PlaneMovement-283830.pt"
             ]
         }
     },
