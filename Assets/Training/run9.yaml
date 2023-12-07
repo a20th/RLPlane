@@ -8,6 +8,7 @@ behaviors:
       batch_size: 128
       buffer_size: 4000
       num_epoch: 3
+      beta: 1e-4
     network_settings:
       num_layers: 2
       hidden_units: 256

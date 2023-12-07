@@ -4,10 +4,11 @@ behaviors:
     time_horizon: 256
     max_steps: 1e6
     hyperparameters:
-      learning_rate: 3e-4
+      learning_rate: 1e-3
       batch_size: 128
       buffer_size: 4000
       num_epoch: 3
+      beta: 4e-3
     network_settings:
       num_layers: 2
       hidden_units: 256

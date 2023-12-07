@@ -1,0 +1,47 @@
+{
+    "PlaneMovement": {
+        "checkpoints": [
+            {
+                "steps": 499793,
+                "file_path": "results\\Run12\\PlaneMovement\\PlaneMovement-499793.onnx",
+                "reward": 246.5899906953176,
+                "creation_time": 1701942356.333624,
+                "auxillary_file_paths": [
+                    "results\\Run12\\PlaneMovement\\PlaneMovement-499793.pt"
+                ]
+            },
+            {
+                "steps": 999956,
+                "file_path": "results\\Run12\\PlaneMovement\\PlaneMovement-999956.onnx",
+                "reward": 294.110897064209,
+                "creation_time": 1701942969.193213,
+                "auxillary_file_paths": [
+                    "results\\Run12\\PlaneMovement\\PlaneMovement-999956.pt"
+                ]
+            },
+            {
+                "steps": 1000212,
+                "file_path": "results\\Run12\\PlaneMovement\\PlaneMovement-1000212.onnx",
+                "reward": 294.110897064209,
+                "creation_time": 1701942969.2865324,
+                "auxillary_file_paths": [
+                    "results\\Run12\\PlaneMovement\\PlaneMovement-1000212.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000212,
+            "file_path": "results\\Run12\\PlaneMovement.onnx",
+            "reward": 294.110897064209,
+            "creation_time": 1701942969.2865324,
+            "auxillary_file_paths": [
+                "results\\Run12\\PlaneMovement\\PlaneMovement-1000212.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
